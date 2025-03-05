@@ -1,0 +1,20 @@
+{
+    "name": "e-commerce/common",
+    "description": "Common library for E-commerce sample application",
+    "type": "library",
+    "license": "MIT",
+    "authors": [{
+        "name": "Rander Carlos",
+        "email": "randerccf@gmail.com"
+    }],
+    "require": {
+        "php": "^8.1",
+        "illuminate/support": "^8.0.0"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Ecommerce\\Common\\": "src/"
+        }
+    }
+}
