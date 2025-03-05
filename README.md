@@ -1,0 +1,1 @@
+**Common library for E-commerce sample application**
