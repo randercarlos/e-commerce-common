@@ -1,5 +1,5 @@
 {
-    "name": "e-commerce/common",
+    "name": "ecommerce/common",
     "description": "Common library for E-commerce sample application",
     "type": "library",
     "license": "MIT",
