@@ -7,8 +7,6 @@ use Throwable;
 
 class JsonLogFormmater extends NormalizerFormatter
 {
-    private const SEPARATOR = '==================================================================================================='; // Se
-
     public function __construct()
     {
         parent::__construct('Y-m-d H:i:s');
@@ -32,8 +30,8 @@ class JsonLogFormmater extends NormalizerFormatter
         ];
 
 
-        return json_encode($log, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT)
-            . PHP_EOL . self::SEPARATOR . PHP_EOL;
+        return json_encode($log, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+            . PHP_EOL;
     }
 
     private function formatStackTrace(?Throwable $exception): ?array
