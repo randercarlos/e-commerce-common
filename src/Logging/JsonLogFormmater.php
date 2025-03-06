@@ -5,7 +5,7 @@ namespace Ecommerce\Common\Logging;
 use Monolog\Formatter\JsonFormatter;
 use Throwable;
 
-class JsonLogFormatter extends JsonFormatter
+class AppJsonLogFormatter extends JsonFormatter
 {
     public function __construct()
     {
