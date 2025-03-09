@@ -6,13 +6,24 @@ use Ecommerce\Common\Containers\Container;
 
 class ProductContainer implements Container
 {
+    public int $id;
+    public string $name;
+    public string $description;
+    public float $price;
+    public CategoryContainer $category;
+
     public function __construct(
-        public int $id,
-        public string $name,
-        public string $description,
-        public float $price,
-        public CategoryContainer $category
+        int $id,
+        string $name,
+        string $description,
+        float $price,
+        CategoryContainer $category
     ) {
+        $this->id = $id;
+        $this->name = $name;
+        $this->description = $description;
+        $this->price = $price;
+        $this->category = $category;
     }
 
     /**

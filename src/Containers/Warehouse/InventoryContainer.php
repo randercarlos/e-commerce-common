@@ -6,10 +6,15 @@ use Ecommerce\Common\Containers\Container;
 
 class InventoryContainer implements Container
 {
+    public int $productId;
+    public float $quantity;
+
     public function __construct(
-        public int $productId,
-        public float $quantity
+        int $productId,
+        float $quantity
     ) {
+        $this->productId = $productId;
+        $this->quantity = $quantity;
     }
 
     /**

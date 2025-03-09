@@ -6,11 +6,18 @@ use Ecommerce\Common\Containers\Container;
 
 class ProductRatingContainer implements Container
 {
+    public int $productId;
+    public int $rating;
+    public float $averageRating;
+
     public function __construct(
-        public int $productId, 
-        public int $rating, 
-        public float $averageRating
+        int $productId,
+        int $rating,
+        float $averageRating
     ) {
+        $this->productId = $productId;
+        $this->rating = $rating;
+        $this->averageRating = $averageRating;
     }
 
     /**

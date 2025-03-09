@@ -7,11 +7,18 @@ use JetBrains\PhpStorm\Pure;
 
 class OrderContainer implements Container
 {
+    public int $productId;
+    public float $quantity;
+    public float $totalPrice;
+
     public function __construct(
-        public int $productId,
-        public float $quantity,
-        public float $totalPrice
+        int $productId,
+        float $quantity,
+        float $totalPrice
     ) {
+        $this->productId = $productId;
+        $this->quantity = $quantity;
+        $this->totalPrice = $totalPrice;
     }
 
     /**
