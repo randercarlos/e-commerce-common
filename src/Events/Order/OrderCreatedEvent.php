@@ -8,9 +8,12 @@ use Ecommerce\Common\Events\Event;
 
 class OrderCreatedEvent extends Event
 {
+    private OrderData $orderData;
+
     public string $type = Events::ORDER_CREATED;
 
-    public function __construct(public OrderData $data)
+    public function __construct(OrderData $data)
     {
+        $this->orderData = $data;
     }
 }

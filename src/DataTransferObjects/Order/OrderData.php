@@ -4,11 +4,19 @@ namespace Ecommerce\Common\DataTransferObjects\Order;
 
 class OrderData
 {
+    private int $productId;
+    private float $quantity;
+    private float $totalPrice;
+
     public function __construct(
-        public readonly int $productId,
-        public readonly float $quantity,
-        public readonly float $totalPrice,
-    ) {}
+        int $productId,
+        float $quantity,
+        float $totalPrice,
+    ) {
+        $this->productId = $productId;
+        $this->quantity = $quantity;
+        $this->totalPrice = $totalPrice;
+    }
 
     /**
      * @param array{productId: int, quantity: float, totalPrice: float} $data

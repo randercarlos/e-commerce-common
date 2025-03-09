@@ -4,11 +4,19 @@ namespace Ecommerce\Common\DataTransferObjects\Rating;
 
 class ProductRatingData
 {
+    private int $productId;
+    private int $rating;
+    private float $averageRating;
+
     public function __construct(
-        public readonly int $productId,
-        public readonly int $rating,
-        public readonly float $averageRating,
-    ) {}
+        int $productId,
+        int $rating,
+        float $averageRating,
+    ) {
+        $this->productId = $productId;
+        $this->rating = $rating;
+        $this->averageRating = $averageRating;
+    }
 
     /**
      * @param array{productId: int, rating: int, averageRating: float} $data

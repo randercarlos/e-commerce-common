@@ -4,10 +4,16 @@ namespace Ecommerce\Common\DataTransferObjects\Warehouse;
 
 class InventoryData
 {
+    private int $productId;
+    private float $quantity;
+
     public function __construct(
-        public readonly int $productId,
-        public readonly float $quantity,
-    ) {}
+        int $productId,
+        float $quantity,
+    ) {
+        $this->productId = $productId;
+        $this->quantity = $quantity;
+    }
 
     /**
      * @param array{productId: int, quantity: float} $data

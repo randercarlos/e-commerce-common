@@ -4,13 +4,25 @@ namespace Ecommerce\Common\DataTransferObjects\Product;
 
 class ProductData
 {
+    private int $id;
+    private string $name;
+    private string $description;
+    private float $price;
+    private CategoryData $category;
+
     public function __construct(
-        public readonly int $id,
-        public readonly string $name,
-        public readonly string $description,
-        public readonly float $price,
-        public readonly CategoryData $category,
-    ) {}
+        int $id,
+        string $name,
+        string $description,
+        float $price,
+        CategoryData $category,
+    ) {
+        $this->id = $id;
+        $this->name = $name;
+        $this->description = $description;
+        $this->price = $price;
+        $this->category = $category;
+    }
 
     /**
      * @param array{id: int, name: string, description: string, price: float, category: array{
