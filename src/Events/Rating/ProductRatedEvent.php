@@ -8,9 +8,9 @@ use Ecommerce\Common\Events\Event;
 
 class ProductRatedEvent extends Event
 {
-    private ProductRatingData $data;
-
     public string $type = Events::PRODUCT_RATED;
+
+    public ProductRatingData $data;
 
     public function __construct(ProductRatingData $data)
     {

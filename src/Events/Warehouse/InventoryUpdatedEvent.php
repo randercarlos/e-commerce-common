@@ -8,9 +8,9 @@ use Ecommerce\Common\Events\Event;
 
 class InventoryUpdatedEvent extends Event
 {
-    private InventoryData $data;
-
     public string $type = Events::INVENTORY_UPDATED;
+
+    public InventoryData $data;
 
     public function __construct(InventoryData $data)
     {

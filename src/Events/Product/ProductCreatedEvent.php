@@ -10,7 +10,7 @@ class ProductCreatedEvent extends Event
 {
     public string $type = Events::PRODUCT_CREATED;
 
-    private ProductData $data;
+    public ProductData $data;
 
     public function __construct(ProductData $data)
     {
