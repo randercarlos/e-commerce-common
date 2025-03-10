@@ -2,6 +2,8 @@
 
 namespace Ecommerce\Common\Services;
 
+use Ecommerce\Common\Exceptions\PulsarException;
+use Illuminate\Support\Facades\Log;
 use Pulsar\Authentication\Basic;
 use Pulsar\Authentication\Jwt;
 use Pulsar\Compression\Compression;
@@ -52,7 +54,25 @@ class PulsarService
         }
     }
 
-    public function createConsumer(callable $consumerHandler): void {
+    public function produceMessage(string $message): void {
+        $producer = null;
+
+        try {
+            $producer = $this->createProducer();
+
+            if ($producer) {
+                $producer->send($message);
+            }
+
+            $producer->close();
+        } catch(\Throwable) {
+            $producer->close();
+
+            throw new PulsarException('=============== ERROR ON PRODUCE MESSAGE IN PULSAR ===============');
+        }
+    }
+
+    public function consumeMessages(callable $consumerHandler): void {
         $consumer = null;
 
         try {
@@ -69,14 +89,28 @@ class PulsarService
             $consumer->connect();
 
             while (true) {
-                $message = $consumer->receive();
+                try {
+                    $message = $consumer->receive();
 
-                if ($message) {
-                    $consumerHandler($consumer, $message);
+                    if ($message) {
+                        $consumerHandler($message);
+                    }
+
+                    // confirm message was read if not occurs errors
+                    $consumer->ack($message);
+                } catch (\Throwable $e) {
+                    // confirm message was not read if occurs error
+                    $consumer->nack($message);
+
+                    Log::error('=============== ERROR ON CONSUME MESSAGE IN PULSAR ===============');
+                    Log::error($e->getMessage());
+                    sleep(1);
                 }
             }
         } finally {
-            $consumer->close();
+            if ($consumer) {
+                $consumer->close();
+            }
         }
     }
 
