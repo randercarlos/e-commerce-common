@@ -4,8 +4,8 @@ namespace Ecommerce\Common\DataTransferObjects\Warehouse;
 
 class InventoryData
 {
-    private int $productId;
-    private float $quantity;
+    public int $productId;
+    public float $quantity;
 
     public function __construct(
         int $productId,

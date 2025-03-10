@@ -4,9 +4,9 @@ namespace Ecommerce\Common\DataTransferObjects\Order;
 
 class OrderData
 {
-    private int $productId;
-    private float $quantity;
-    private float $totalPrice;
+    public int $productId;
+    public float $quantity;
+    public float $totalPrice;
 
     public function __construct(
         int $productId,

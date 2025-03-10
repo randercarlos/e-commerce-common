@@ -4,9 +4,9 @@ namespace Ecommerce\Common\DataTransferObjects\Rating;
 
 class ProductRatingData
 {
-    private int $productId;
-    private int $rating;
-    private float $averageRating;
+    public int $productId;
+    public int $rating;
+    public float $averageRating;
 
     public function __construct(
         int $productId,

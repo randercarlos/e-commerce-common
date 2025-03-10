@@ -4,11 +4,11 @@ namespace Ecommerce\Common\DataTransferObjects\Product;
 
 class ProductData
 {
-    private int $id;
-    private string $name;
-    private string $description;
-    private float $price;
-    private CategoryData $category;
+    public int $id;
+    public string $name;
+    public string $description;
+    public float $price;
+    public CategoryData $category;
 
     public function __construct(
         int $id,

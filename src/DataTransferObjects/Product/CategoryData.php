@@ -4,8 +4,8 @@ namespace Ecommerce\Common\DataTransferObjects\Product;
 
 class CategoryData
 {
-    private int $id;
-    private string $name;
+    public int $id;
+    public string $name;
 
     public function __construct(
         int $id,
