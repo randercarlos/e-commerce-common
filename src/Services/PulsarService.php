@@ -82,7 +82,7 @@ class PulsarService
             $options->setConnectTimeout(self::CONNECT_TIMEOUT);
             $options->setTopic($this->topic);
             $options->setSubscription(config('app.name'));
-            $options->setSubscriptionType(SubscriptionType::Shared);
+            $options->setSubscriptionType(SubscriptionType::Exclusive);
 
             $consumer = new Consumer($this->url, $options);
             $consumer->connect();
