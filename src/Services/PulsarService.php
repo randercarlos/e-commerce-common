@@ -22,7 +22,6 @@ class PulsarService
     private ?string $authType;
     private array $authCredentials;
     const CONNECT_TIMEOUT = 5;
-    const SUBSCRIPTION = 'consumer';
 
     public function __construct(string $url, string $topic, ?string $authType = null, array $authCredentials = [])
     {
@@ -82,7 +81,7 @@ class PulsarService
 
             $options->setConnectTimeout(self::CONNECT_TIMEOUT);
             $options->setTopic($this->topic);
-            $options->setSubscription(self::SUBSCRIPTION);
+            $options->setSubscription(config('app.name'));
             $options->setSubscriptionType(SubscriptionType::Shared);
 
             $consumer = new Consumer($this->url, $options);
