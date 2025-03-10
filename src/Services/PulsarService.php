@@ -89,15 +89,17 @@ class PulsarService
             $consumer->connect();
 
             while (true) {
+                $message = null;
+
                 try {
                     $message = $consumer->receive();
 
                     if ($message) {
                         $consumerHandler($message);
-                    }
 
-                    // confirm message was read if not occurs errors
-                    $consumer->ack($message);
+                        // confirm message was read if not occurs errors
+                        $consumer->ack($message);
+                    }
                 } catch (\Throwable $e) {
                     // confirm message was not read if occurs error
                     $consumer->nack($message);
