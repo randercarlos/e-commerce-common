@@ -11,7 +11,6 @@
         "php": ">=8.0",
         "illuminate/support": "^8.0.0"
     },
-    "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "Ecommerce\\Common\\": "src/"
