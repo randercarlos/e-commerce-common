@@ -63,9 +63,9 @@ class PulsarService
                 $producer->send($message);
             }
 
-            $producer->close();
+            $producer?->close();
         } catch(\Throwable) {
-            $producer->close();
+            $producer?->close();
 
             throw new PulsarException('=============== ERROR ON PRODUCE MESSAGE IN PULSAR ===============');
         }
@@ -109,9 +109,7 @@ class PulsarService
                 }
             }
         } finally {
-            if ($consumer) {
-                $consumer->close();
-            }
+            $consumer?->close();
         }
     }
 
