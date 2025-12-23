@@ -3,30 +3,34 @@
 namespace Ecommerce\Common\Services;
 
 use Ecommerce\Common\Exceptions\PulsarException;
-use Illuminate\Support\Facades\Log;
 use Pulsar\Authentication\Basic;
 use Pulsar\Authentication\Jwt;
-use Pulsar\Compression\Compression;
 use Pulsar\Producer;
 use Pulsar\ProducerOptions;
-use Pulsar\MessageOptions;
 use Pulsar\Consumer;
 use Pulsar\ConsumerOptions;
 use Pulsar\SubscriptionType;
-use Pulsar\Proto\CommandSubscribe\InitialPosition;
 
 class PulsarService
 {
     private string $url;
     private string $topic;
+    private string $subscriptionName;
     private ?string $authType;
     private array $authCredentials;
     const CONNECT_TIMEOUT = 5;
 
-    public function __construct(string $url, string $topic, ?string $authType = null, array $authCredentials = [])
+    public function __construct(
+        string $url, 
+        string $topic, 
+        string $subscriptionName, 
+        ?string $authType = null, 
+        array $authCredentials = []
+    )
     {
         $this->url = $url;
         $this->topic = $topic;
+        $this->subscriptionName = $subscriptionName;
         $this->authType = $authType;
         $this->authCredentials = $authCredentials;
     }
@@ -49,7 +53,7 @@ class PulsarService
         } catch(\Throwable) {
             $producer?->close();
 
-            return null;
+            throw new PulsarException('=============== ERROR ON CREATE PRODUCER IN PULSAR ===============');
         }
     }
 
@@ -59,8 +63,8 @@ class PulsarService
         try {
             $producer = $this->createProducer();
 
-            if ($producer) {
-                $producer->send($message);
+            if (!$producer) {
+                throw new PulsarException('=============== UNABLE TO CREATE PULSAR PRODUCER ===============');
             }
 
             $producer?->close();
@@ -81,7 +85,7 @@ class PulsarService
 
             $options->setConnectTimeout(self::CONNECT_TIMEOUT);
             $options->setTopic($this->topic);
-            $options->setSubscription(config('app.name'));
+            $options->setSubscription($this->subscriptionName);
             $options->setSubscriptionType(SubscriptionType::Exclusive);
 
             $consumer = new Consumer($this->url, $options);
@@ -101,10 +105,12 @@ class PulsarService
                     }
                 } catch (\Throwable $e) {
                     // confirm message was not read if occurs error
-                    $consumer->nack($message);
+                    if ($message) {
+                        $consumer->nack($message);
+                    }
 
-                    Log::error('=============== ERROR ON CONSUME MESSAGE IN PULSAR ===============');
-                    Log::error($e->getMessage());
+                    error_log('=============== ERROR ON CONSUME MESSAGE IN PULSAR ===============');
+                    error_log($e->getMessage());
                     sleep(1);
                 }
             }
