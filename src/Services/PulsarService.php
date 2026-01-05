@@ -67,6 +67,8 @@ class PulsarService
                 throw new PulsarException('=============== UNABLE TO CREATE PULSAR PRODUCER ===============');
             }
 
+            $producer->send($message);
+            
             $producer?->close();
         } catch(\Throwable) {
             $producer?->close();
